@@ -1,0 +1,66 @@
+{% extends "master_template.html" %}
+    {%block title%}
+    Student Details Page
+    {%endblock%}
+  {%block body%}
+  <h1 class="label label-success">Horizontal form</h1>
+  <form class="form-horizontal" action="/insert" method="post" >
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Name:</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="name" placeholder="Enter Student Name" name="name" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Department:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="email" placeholder="Enter Department" name="dpt" min="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Contact:</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="email" placeholder="Enter Number" name="cnt" min="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Gender:</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="program" name="gender">
+          <option value="Male"> Male </option>
+          <option value="Female"> Female </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+  </form>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Student Name</th>
+        <th>Department</th>
+        <th>Contact</th>
+        <th>Gender</th>
+        <th>Entry Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for stud in students%}
+      <tr>
+        <td> {{stud.id}}</td>
+        <td>{{stud.Name}}</td>
+        <td>{{stud.Department}}</td>
+        <td>{{stud.Contact}}</td>
+        <td>{{stud.gender}}</td>
+        <td>{{stud.date}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+{%endblock%}
