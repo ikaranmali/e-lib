@@ -1,24 +1,42 @@
 {% extends "master_template.html" %}
     {%block title%}
-    Return Details Page
+    Return Details Section
     {%endblock%}
   {%block body%}
-  <h1 class="label label-success">Horizontal form</h1>
+
+  <h1 class="label label-success"></h1>
+
+  <p>
+  <style>
+    body {
+      background-image: url('/static/bg.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    </style>
+</p>
+
+<p>
+
+</p>
+
   <form class="form-horizontal" action="/return_book" method="post" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">Student Name:</label>
       <div class="col-sm-10">
-        <select class="form-control" id="program" name="sm">
+        <select class="form-control" id="program" placeholder="Enter Student's Name" name="sm">
           {%for a in c%}
           <option value="{{a.S_Name}}"> {{a.S_Name}} </option>
           {%endfor%}
         </select>
       </div>
     </div>
+  
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Book Title:</label>
         <div class="col-sm-10">
-          <select class="form-control" id="program" name="bt">
+          <select class="form-control" id="program" placeholder="Enter Book Title" name="bt">
             {%for h in b%}
             <option value="{{h.B_title}}"> {{h.B_title}} </option>
             {%endfor%}
@@ -28,13 +46,19 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="email">Voucher No:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="email" placeholder="Enter Recipt Serial number" name="vn">
+          <input type="text" class="form-control" id="email" placeholder="Enter Recipt Serial number" name="vn" required>
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="email">Charges:</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" id="email" placeholder="If Returned After Due Date" name="ch" min="0">
+          <input type="number" class="form-control" id="email" placeholder="If Returned After Due Date" name="ch" min="0" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="email">Due Date:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="email" placeholder="DD-MM-YYYY" name="dd">
         </div>
       </div>
 
@@ -44,15 +68,19 @@
       </div>
     </div>
   </form>
-  <table class="table">
+  <p>
+  
+  </p>
+  <table class="table" style="width:100%">
     <thead>
       <tr>
         <th>Id</th>
         <th>Student Name</th>
         <th>Book Title</th>
-        <th>Date</th>
         <th>Voucher No</th>
         <th>Charges</th>
+        <th>Due Date</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -61,9 +89,9 @@
         <td> {{stud.id}}</td>
         <td>{{stud.St_Name}}</td>
         <td>{{stud.Bo_title}}</td>
-        <td>{{stud.date}}</td>
         <td>{{stud.token_no}}</td>
         <td>{{stud.charges}}</td>
+        <td>{{stud.due_date}}</td>
       </tr>
       {%endfor%}
     </tbody>

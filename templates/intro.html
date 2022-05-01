@@ -1,11 +1,35 @@
-  
+
 {% extends "master_template.html" %}
 {%block title%}
-  E-Library by (Rushali Pawar)
+  E-Library Management System
 {%endblock%}
-
 {% block body%}
-  <h2>Welcome,</h2>
+
+<!-- <h2>Welcome</h2> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+ <body>
+  <image src="{{url_for('static',filename = 'book.jpg')}}" style="width:40%;" >
+</body>
+
+<!-- <div id="image" style="background:url(/static/bg.png) center / cover no-repeat;"></div> -->
+<p>
+  <style>
+    body {
+      background-image: url('/static/bg.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    </style>
+</p>
   <table class="table">
     <thead>
       <tr>

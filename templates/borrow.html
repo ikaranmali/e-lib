@@ -1,14 +1,25 @@
 {% extends "master_template.html" %}
     {%block title%}
-    Borrow Details Page
+    Borrow Details Section
     {%endblock%}
   {%block body%}
-  <h1 class="label label-success">Horizontal form</h1>
+
+  <h1 class="label label-success"></h1>
+  <p>
+    <style>
+      body {
+        background-image: url('/static/bg.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+      </style>
+  </p>
   <form class="form-horizontal" action="/borrow_book" method="post" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">Student Name:</label>
       <div class="col-sm-10">
-        <select class="form-control" id="program" name="sm">
+        <select class="form-control" id="program" placeholder="Enter Student's Name" name="sm">
           {%for a in c%}
           <option value="{{a.Name}}"> {{a.Name}} </option>
           {%endfor%}
@@ -18,13 +29,36 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Book Title:</label>
         <div class="col-sm-10">
-          <select class="form-control" id="program" name="bt">
+          <select class="form-control" id="program" placeholder="Enter Book's Title" name="bt">
             {%for h in b%}
             <option value="{{h.Title}}"> {{h.Title}} </option>
             {%endfor%}
           </select>
         </div>
       </div>
+      
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Book Edition:</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="program" placeholder="Enter Book's Edition" name="bedi">
+            {%for h in e%}
+            <option value="{{h.Title}}"> {{h.Edition}} </option>
+            {%endfor%}
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Book Publication:</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="program" placeholder="Enter Book's Publication" name="bpub">
+            {%for h in p%}
+            <option value="{{h.Title}}"> {{h.Publication}} </option>
+            {%endfor%}
+          </select>
+        </div>
+      </div>
+      
       <div class="form-group">
         <label class="control-label col-sm-2" for="email">Voucher No:</label>
         <div class="col-sm-10">

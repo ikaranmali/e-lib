@@ -10,8 +10,6 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-
-
 app = Flask(__name__)
 ##postgress
 db = SQLAlchemy()
@@ -28,6 +26,7 @@ class Rtrn(db.Model):
     Bo_title = db.Column(db.String(150), nullable=False)
     Date = db.Column(db.DATE, default=datetime.now())
     token_no = db.Column(db.String(15), nullable=False)
+    due_date = db.Column(db.String(12))
     charges = db.Column(db.Integer)
 
 class Book(db.Model):
@@ -35,6 +34,7 @@ class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     Title = db.Column(db.String(150), nullable=False)
     Edition = db.Column(db.String(150), nullable=False)
+    Publication = db.Column(db.String(150), nullable=False)
     Author = db.Column(db.String(50))
 
 class Borrow(db.Model):
@@ -42,6 +42,8 @@ class Borrow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     S_Name = db.Column(db.String(150), nullable=False)
     B_title = db.Column(db.String(150), nullable=False)
+    B_Edition = db.Column(db.String(150), nullable=False)
+    B_Publication = db.Column(db.String(150), nullable=False)
     Date = db.Column(db.DATE, default=datetime.now())
     token_no = db.Column(db.String(15), nullable=False)
     due = db.Column(db.String(12))
@@ -83,10 +85,11 @@ def book():
 
         title = request.form.get("bt")
         edition = request.form.get("be")
+        publication = request.form.get("bp")
         author = request.form.get("ba")
 
         # Creat new record
-        stud = Book(Title = title, Edition=edition, Author=author)
+        stud = Book(Title = title, Edition=edition, Publication=publication, Author=author)
         db.session.add(stud)
         db.session.commit()
 
@@ -101,9 +104,11 @@ def borrow():
         BT = request.form.get("bt")
         VN = request.form.get("vn")
         DA = request.form.get("date")
+        BED = request.form.get("bedi")
+        BPUB = request.form.get("bpub")
 
         # Creat new record
-        stud = Borrow(S_Name = name, B_title=BT, token_no=VN, due=DA)
+        stud = Borrow(S_Name = name, B_title=BT, token_no=VN, due=DA,B_Edition=BED,B_Publication = BPUB)
         db.session.add(stud)
         db.session.commit()
 
@@ -111,8 +116,10 @@ def borrow():
         return render_template("intro.html", students=students)
 
     c = db.session.query(Student.Name).all()
-    b = db.session.query(Book.Title).all()
-    return render_template("borrow.html", c=c, b=b)
+    bt = db.session.query(Book.Title).all()
+    be = db.session.query(Book.Edition).all()
+    bp = db.session.query(Book.Publication).all()
+    return render_template("borrow.html", c=c, b=bt,e=be,p=bp)
 
 @app.route("/return_book", methods=['GET', 'POST'])
 def rtrn():
@@ -122,9 +129,9 @@ def rtrn():
         BT = request.form.get("bt")
         VN = request.form.get("vn")
         DA = request.form.get("ch")
-
+        DD = request.form.get("dd")
         # Creat new record
-        stud = Rtrn(St_Name = name, Bo_title=BT, token_no=VN, charges=DA)
+        stud = Rtrn(St_Name = name, Bo_title=BT, token_no=VN, charges=DA, due_date = DD)
         db.session.add(stud)
         db.session.commit()
 
@@ -134,4 +141,4 @@ def rtrn():
     return render_template("return.html", c=c, b=b, students=students)
 
 if __name__ == "__main__":
-    app.run(debug=False,host="127.0.0.1")
+    app.run(debug=True,host="127.0.0.1")

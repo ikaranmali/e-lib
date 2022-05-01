@@ -1,9 +1,20 @@
 {% extends "master_template.html" %}
     {%block title%}
-    Student Details Page
+    Student Details Section
     {%endblock%}
   {%block body%}
-  <h1 class="label label-success">Horizontal form</h1>
+
+  <h1 class="label label-success"></h1>
+  <p>
+    <style>
+      body {
+        background-image: url('/static/bg.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+      </style>
+  </p>
   <form class="form-horizontal" action="/insert" method="post" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="email">Name:</label>
@@ -14,7 +25,16 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="email">Department:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="email" placeholder="Enter Department" name="dpt" min="0">
+        <!-- <input type="text" class="form-control" id="email" placeholder="Enter Department" name="dpt" min="0"> -->
+        <select class="form-control" id="program" name="department">
+          <option value="IT/Systems"> IT & Systems </option>
+          <option value="Finance"> Finance </option>
+          <option value="Marketing"> Marketing </option>
+          <option value="Human Resource"> Human Resource </option>
+          <option value="Operations Management"> Operations Management </option>
+          <option value="Entrepreneurship"> Entrepreneurship </option>
+
+        </select>
       </div>
     </div>
     <div class="form-group">
@@ -56,7 +76,7 @@
         <td> {{stud.id}}</td>
         <td>{{stud.Name}}</td>
         <td>{{stud.Department}}</td>
-        <td>{{stud.Contact}}</td>
+        <td>{{stud.contact}}</td>
         <td>{{stud.gender}}</td>
         <td>{{stud.date}}</td>
       </tr>

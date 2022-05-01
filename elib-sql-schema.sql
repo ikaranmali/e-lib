@@ -7,6 +7,8 @@ create table borrow(
 	id  int primary key auto_increment,
 	S_Name char(150),
 	B_title varchar(150),
+	B_Edition varchar(150),
+	B_Publication varchar(150),
 	date timestamp default CURRENT_TIMESTAMP,
 	token_no varchar(15),
 	due varchar(12));
@@ -17,6 +19,7 @@ create table b_return(
 	Bo_title varchar(150),
 	date timestamp default CURRENT_TIMESTAMP,
 	token_no varchar(15),
+	due_date varchar(12),
 	charges int);
     
 create table students(
@@ -31,6 +34,7 @@ create table books(
 	id int primary key auto_increment,
 	Title varchar(150),
 	Edition varchar(150),
+	Publication varchar(150),
 	Author varchar(50));
 
 show databases;

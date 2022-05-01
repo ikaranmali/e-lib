@@ -10,14 +10,49 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+    
+    li {
+      float: left;
+    }
+    
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 26px;
+      text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+      background-color: #111;
+    }
+    
+    .active {
+      background-color: #04AA6D;
+    }
+    </style>
+  </head>
+
 <body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
-      <div class="navbar-header">
+      <!-- <div class="navbar-header">
         <a class="navbar-brand" href="{{url_for('index')}}">E-Library Management System</a>
-      </div>
-      <ul class="nav navbar-nav">
+        <a class="navbar-brand" href="{{url_for('index')}}"></a>
+      
+      </div> -->
+      <!-- <ul class="nav navbar-nav"> -->
+      <ul class="topnav">
+
         <li><a href="{{url_for('index')}}">Home</a></li>
         <li><a href="{{url_for('insert')}}">Students Details</a></li>
         <li><a href="{{url_for('book')}}">Books Details</a></li>
@@ -26,10 +61,25 @@
       </ul>
     </div>
   </nav>
-<div class="container">
+  
+  <h1>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <!-- E-Library Management System -->
+    <script> document.write(document.title); </script>
+  </h1> 
+
+  <div class="container">
   {%block body%}
   {%endblock%}
 </div>
+
 
 </body>
 </html>

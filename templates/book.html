@@ -1,9 +1,19 @@
 {% extends "master_template.html" %}
     {%block title%}
-    Book Details Page
+    Book Details Section
     {%endblock%}
   {%block body%}
-  <h1 class="label label-success">Horizontal form</h1>
+  <h1 class="label label-success"></h1>
+  <p>
+    <style>
+      body {
+        background-image: url('/static/bg.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+      </style>
+  </p>
   <form class="form-horizontal" action="/book" method="post" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="email">Book Title:</label>
@@ -18,9 +28,15 @@
       </div>
     </div>
     <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Publication:</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="name" placeholder="Enter Book Publication" name="bp" required>
+      </div>
+    </div>
+    <div class="form-group">
       <label class="control-label col-sm-2" for="email">Author / Writer:</label>
       <div class="col-sm-10">
-        <input class="form-control" id="name" placeholder="Enter Book's Autohr" name="ba" required>
+        <input class="form-control" id="name" placeholder="Enter Book's Author" name="ba" required>
       </div>
     </div>
     <div class="form-group">
@@ -35,6 +51,7 @@
         <th>ID</th>
         <th>Book Title</th>
         <th>Edition</th>
+        <th>Publication</th>
         <th>Author</th>
       </tr>
     </thead>
@@ -44,6 +61,7 @@
         <td> {{stud.id}}</td>
         <td>{{stud.Title}}</td>
         <td>{{stud.Edition}}</td>
+        <td>{{stud.Publication}}</td>
         <td>{{stud.Author}}</td>
       </tr>
       {%endfor%}
