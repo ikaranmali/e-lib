@@ -1,7 +1,7 @@
 # e-lib
 E-Library Management System
 
-![Project-image](Project-image-1.png) 
+![Project-image](Home-Page.png) 
 
 `Install Required Libraries`
 - pip install -r requirements.txt
