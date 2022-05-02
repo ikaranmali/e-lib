@@ -40,9 +40,9 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Book Edition:</label>
         <div class="col-sm-10">
-          <select class="form-control" id="program" placeholder="Enter Book's Edition" name="bedi">
-            {%for h in e%}
-            <option value="{{h.Title}}"> {{h.Edition}} </option>
+          <select class="form-control" id="program" placeholder="Enter Book's Edition" name="be">
+            {%for k in book_info%}
+            <option value="{{k.Edition}}"> {{k.Edition}} </option>
             {%endfor%}
           </select>
         </div>
@@ -51,9 +51,9 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Book Publication:</label>
         <div class="col-sm-10">
-          <select class="form-control" id="program" placeholder="Enter Book's Publication" name="bpub">
-            {%for h in p%}
-            <option value="{{h.Title}}"> {{h.Publication}} </option>
+          <select class="form-control" id="program" placeholder="Enter Book's Publication" name="bp">
+            {%for j in book_info%}
+            <option value="{{j.Publication}}"> {{j.Publication}} </option>
             {%endfor%}
           </select>
         </div>

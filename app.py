@@ -42,8 +42,8 @@ class Borrow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     S_Name = db.Column(db.String(150), nullable=False)
     B_title = db.Column(db.String(150), nullable=False)
-    B_Edition = db.Column(db.String(150), nullable=False)
-    B_Publication = db.Column(db.String(150), nullable=False)
+    B_Ed = db.Column(db.String(150), nullable=False)
+    B_Pub = db.Column(db.String(150), nullable=False)
     Date = db.Column(db.DATE, default=datetime.now())
     token_no = db.Column(db.String(15), nullable=False)
     due = db.Column(db.String(12))
@@ -79,6 +79,37 @@ def insert():
     students = Student.query.all()
     return render_template("insert_new_student.html", students=students)
 
+@app.route("/find", methods=['GET', 'POST'])
+def find():
+    name = ''
+    if request.method == "POST":
+        student_name = request.form.get("sname")
+        book_name = request.form.get("bname")
+
+        book_name_list = []
+
+
+        bp = db.session.query(Borrow.B_title,Borrow.Date,Borrow.due).filter_by(S_Name=str(student_name))
+        sp = db.session.query(Student.id,Student.Name,Student.contact,Student.Department).filter_by(Name=str(student_name))
+        print("*********************************")  
+        print((student_name),str(book_name))   
+        
+        book_name_list.clear()
+
+        for x in sp:
+            for y in bp:
+                print("Book details",y,"Student details",x)
+                if (str(student_name) == x[1]):
+                    # return render_template("find.html",
+                    #     St_id= x[0],St_Name=x[1],St_contact=x[2],St_department=x[3],
+                    #     book_title= y[0],issue_date = y[1],due_date=y[2])
+                   
+                    book_name_list.append(y[0])
+        return render_template("find.html",book_title=book_name_list,St_id=x[0],St_Name=x[1],St_contact=x[2],St_department=x[3])
+                    
+    return render_template("find.html")
+
+
 @app.route("/book", methods=['GET', 'POST'])
 def book():
     if request.method == "POST":
@@ -101,25 +132,23 @@ def borrow():
     if request.method == "POST":
 
         name = request.form.get("sm")
-        BT = request.form.get("bt")
-        VN = request.form.get("vn")
-        DA = request.form.get("date")
-        BED = request.form.get("bedi")
-        BPUB = request.form.get("bpub")
-
+        bt = request.form.get("bt")
+        vn = request.form.get("vn")
+        da = request.form.get("date")
+        be = request.form.get("be")
+        bp = request.form.get("bp")
+        
         # Creat new record
-        stud = Borrow(S_Name = name, B_title=BT, token_no=VN, due=DA,B_Edition=BED,B_Publication = BPUB)
+        stud = Borrow(S_Name = name, B_title = bt, token_no = vn, due = da, B_Ed = be, B_Pub = bp)
         db.session.add(stud)
         db.session.commit()
 
-        students = Borrow.query.all()
-        return render_template("intro.html", students=students)
-
     c = db.session.query(Student.Name).all()
+    book_i = Book.query.all()
     bt = db.session.query(Book.Title).all()
     be = db.session.query(Book.Edition).all()
     bp = db.session.query(Book.Publication).all()
-    return render_template("borrow.html", c=c, b=bt,e=be,p=bp)
+    return render_template("borrow.html",book_info=book_i, c=c, b=bt,e=be,p=bp)
 
 @app.route("/return_book", methods=['GET', 'POST'])
 def rtrn():
