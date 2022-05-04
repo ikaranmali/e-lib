@@ -30,7 +30,7 @@
     </div>
   </form>
 
-  
+<!--   
    <table class="table">
     <thead>
       <tr>
@@ -56,5 +56,33 @@
       </tr>
     </tbody>
   </table>
-  
+   -->
+<!--  -->
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Student Name</th>
+      <th>Book Title</th>
+      <th>Issue Date</th>
+      <th>Voucher No</th>
+      <th>Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for stud in bp%}
+    <tr>
+      <td>{{stud.id}}</td>
+      <td>{{stud.S_Name}}</td>
+      <td>{{stud.B_title}}</td>
+      <td>{{stud.bdate}}</td>
+      <td>{{stud.token_no}}</td>
+      <td>{{stud.due}}</td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
 {%endblock%}
+

@@ -83,7 +83,6 @@ def insert():
 
 @app.route("/find", methods=['GET', 'POST'])
 def find():
-    name = ''
     if request.method == "POST":
         student_name = request.form.get("sname")
         book_name = request.form.get("bname")
@@ -93,28 +92,29 @@ def find():
         due_date_list = []
 
 
-        bp = db.session.query(Borrow.B_title,Borrow.bdate,Borrow.due).filter_by(S_Name=str(student_name))
-        sp = db.session.query(Student.id,Student.Name,Student.contact,Student.Department).filter_by(Name=str(student_name))
-        print("*********************************")  
-        print((student_name),str(book_name))   
+        bp = db.session.query(Borrow.B_title,Borrow.bdate,Borrow.due,Borrow.S_Name,Borrow.id,Borrow.token_no).filter_by(S_Name=str(student_name))
+        # sp = db.session.query(Student.id,Student.Name,Student.contact,Student.Department).filter_by(Name=str(student_name))
+        # print("*********************************")  
+        # print((student_name),str(book_name))   
         
-        book_name_list.clear()
-        issue_date_list.clear()
-        due_date_list.clear()
+        # book_name_list.clear()
+        # issue_date_list.clear()
+        # due_date_list.clear()
 
-        for x in sp:
-            for y in bp:
-                print("Book details",y,"Student details",x)
-                if (str(student_name) == x[1]):
-                    # return render_template("find.html",
-                    #     St_id= x[0],St_Name=x[1],St_contact=x[2],St_department=x[3],
-                    #     book_title= y[0],issue_date = y[1],due_date=y[2])
+        # for x in sp:
+        #     for y in bp:
+        #         print("Book details",y,"Student details",x)
+        #         if (str(student_name) == x[1]):
+        #             # return render_template("find.html",
+        #             #     St_id= x[0],St_Name=x[1],St_contact=x[2],St_department=x[3],
+        #             #     book_title= y[0],issue_date = y[1],due_date=y[2])
                    
-                    book_name_list.append(y[0])
-                    issue_date_list.append(y[1])
-                    due_date_list.append(y[2])
-        return render_template("find.html",book_title=book_name_list,issue_date_list=issue_date_list,due_date_list=due_date_list,St_id=x[0],St_Name=x[1],St_contact=x[2],St_department=x[3])
-                    
+        #             book_name_list.append(y[0])
+        #             issue_date_list.append(y[1])
+        #             due_date_list.append(y[2])
+        # return render_template("find.html",book_title=book_name_list,issue_date_list=issue_date_list,due_date_list=due_date_list,St_id=x[0],St_Name=x[1],St_contact=x[2],St_department=x[3])
+        return render_template("find.html",bp=bp)
+        
     return render_template("find.html")
 
 
@@ -151,6 +151,8 @@ def borrow():
         stud = Borrow(S_Name = name, B_title = bt, token_no = vn, due = da, bdate=bda,B_Ed = be, B_Pub = bp)
         db.session.add(stud)
         db.session.commit()
+        students = Borrow.query.all()
+        return render_template("intro.html", students=students)
 
     c = db.session.query(Student.Name).all()
     book_i = Book.query.all()
@@ -158,7 +160,7 @@ def borrow():
     be = db.session.query(Book.Edition).all()
     bp = db.session.query(Book.Publication).all()
     return render_template("borrow.html",book_info=book_i,c=c,b=bt,e=be,p=bp)
-
+    
 @app.route("/return_book", methods=['GET', 'POST'])
 def rtrn():
     if request.method == "POST":
