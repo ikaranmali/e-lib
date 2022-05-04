@@ -1,22 +1,24 @@
 create database elib;
+
 use elib;
+
 create table borrow(
 	id  int primary key auto_increment,
 	S_Name char(150),
 	B_title varchar(150),
-	date timestamp default CURRENT_TIMESTAMP,
 	token_no varchar(15),
 	B_Ed varchar(150),
     B_Pub varchar(150),
-	due varchar(12));
+	due varchar(12),
+    bdate varchar(12));
     
 create table b_return(
 	id  int primary key auto_increment,
 	St_Name char(150),
 	Bo_title varchar(150),
-	date timestamp default CURRENT_TIMESTAMP,
 	token_no varchar(15),
     due_date varchar(12),
+    bdate varchar(12),
 	charges int);
     
 create table students(

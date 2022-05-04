@@ -24,9 +24,10 @@ class Rtrn(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     St_Name = db.Column(db.String(150), nullable=False)
     Bo_title = db.Column(db.String(150), nullable=False)
-    Date = db.Column(db.DATE, default=datetime.now())
+    # Date = db.Column(db.DATE, default=datetime.now())
     token_no = db.Column(db.String(15), nullable=False)
     due_date = db.Column(db.String(12))
+    bdate = db.Column(db.String(12))
     charges = db.Column(db.Integer)
 
 class Book(db.Model):
@@ -44,9 +45,10 @@ class Borrow(db.Model):
     B_title = db.Column(db.String(150), nullable=False)
     B_Ed = db.Column(db.String(150), nullable=False)
     B_Pub = db.Column(db.String(150), nullable=False)
-    Date = db.Column(db.DATE, default=datetime.now())
+    # Date = db.Column(db.DATE, default=datetime.now())
     token_no = db.Column(db.String(15), nullable=False)
     due = db.Column(db.String(12))
+    bdate = db.Column(db.String(12))
 
 class Student(db.Model):
     __tablename__ = "students"
@@ -87,14 +89,18 @@ def find():
         book_name = request.form.get("bname")
 
         book_name_list = []
+        issue_date_list = []
+        due_date_list = []
 
 
-        bp = db.session.query(Borrow.B_title,Borrow.Date,Borrow.due).filter_by(S_Name=str(student_name))
+        bp = db.session.query(Borrow.B_title,Borrow.bdate,Borrow.due).filter_by(S_Name=str(student_name))
         sp = db.session.query(Student.id,Student.Name,Student.contact,Student.Department).filter_by(Name=str(student_name))
         print("*********************************")  
         print((student_name),str(book_name))   
         
         book_name_list.clear()
+        issue_date_list.clear()
+        due_date_list.clear()
 
         for x in sp:
             for y in bp:
@@ -105,7 +111,9 @@ def find():
                     #     book_title= y[0],issue_date = y[1],due_date=y[2])
                    
                     book_name_list.append(y[0])
-        return render_template("find.html",book_title=book_name_list,St_id=x[0],St_Name=x[1],St_contact=x[2],St_department=x[3])
+                    issue_date_list.append(y[1])
+                    due_date_list.append(y[2])
+        return render_template("find.html",book_title=book_name_list,issue_date_list=issue_date_list,due_date_list=due_date_list,St_id=x[0],St_Name=x[1],St_contact=x[2],St_department=x[3])
                     
     return render_template("find.html")
 
@@ -135,11 +143,12 @@ def borrow():
         bt = request.form.get("bt")
         vn = request.form.get("vn")
         da = request.form.get("date")
+        bda = request.form.get("bdate")
         be = request.form.get("be")
         bp = request.form.get("bp")
         
         # Creat new record
-        stud = Borrow(S_Name = name, B_title = bt, token_no = vn, due = da, B_Ed = be, B_Pub = bp)
+        stud = Borrow(S_Name = name, B_title = bt, token_no = vn, due = da, bdate=bda,B_Ed = be, B_Pub = bp)
         db.session.add(stud)
         db.session.commit()
 
@@ -148,7 +157,7 @@ def borrow():
     bt = db.session.query(Book.Title).all()
     be = db.session.query(Book.Edition).all()
     bp = db.session.query(Book.Publication).all()
-    return render_template("borrow.html",book_info=book_i, c=c, b=bt,e=be,p=bp)
+    return render_template("borrow.html",book_info=book_i,c=c,b=bt,e=be,p=bp)
 
 @app.route("/return_book", methods=['GET', 'POST'])
 def rtrn():
@@ -159,8 +168,10 @@ def rtrn():
         VN = request.form.get("vn")
         DA = request.form.get("ch")
         DD = request.form.get("dd")
+        bDD = request.form.get("bdd")
+
         # Creat new record
-        stud = Rtrn(St_Name = name, Bo_title=BT, token_no=VN, charges=DA, due_date = DD)
+        stud = Rtrn(St_Name = name, Bo_title=BT, token_no=VN, charges=DA, due_date = DD,bdate=bDD)
         db.session.add(stud)
         db.session.commit()
 
